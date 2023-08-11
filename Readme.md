@@ -1,10 +1,8 @@
 # Deep Subtraction Angiography
-### Overview
----
+## Overview
 Unsupervised Pre-training Models for Coronary Angiogram  Subtraction and Segmentation
 
-### Install 
----
+## Install 
 ```shell
 conda create --name deepsa python==3.9
 conda activate deepsa
@@ -13,34 +11,28 @@ cd DeepSA
 pip install -r requirements.txt
 ```
 
-### Run demo
----
+## Run demo
 ```
 python demo.py
 ```
 
-### Dataset
-----
-
+## Dataset
 - LM-CAD (Live-Mask Coronary Angiogram Dataset): 
 - FS-CAD (Fine Segmentation Coronary Angiogram Dataset): 
 
-### Train
-----
+## Train
 Train base mode use LM-CAD dataset
 ```shell
 python train.py
 ```
 
-### Finetune
-----
+## Finetune
 Finetune base mode use FM-CAD dataset
 ```
 python finetune.py
 ```
 
-### Cite
----
+## Cite
 ```
 xxxx
 ```

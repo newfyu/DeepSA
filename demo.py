@@ -41,8 +41,8 @@ def predict(img, options):
     img =  img.convert('L')
     x1 = tfmc1(img)
     x2 = tfmc2(img)
-    _,out1 = fusion_predict(netG_B2A, ckpts, x1, multiangle=multiangle, denoise=4, size=SIZE, cutoff=0.4, pad=pad, netE=True)
-    _,out2 = fusion_predict(netG_B2A, ckpts, x2, multiangle=False, denoise=4, size=SIZE, cutoff=0.4, pad=pad, netE=True)
+    _, out1 = fusion_predict(netG_B2A, ckpts, x1, multiangle=multiangle, denoise=4, size=SIZE, cutoff=0.4, pad=pad, netE=True)
+    _, out2 = fusion_predict(netG_B2A, ckpts, x2, multiangle=False, denoise=4, size=SIZE, cutoff=0.4, pad=pad, netE=True)
 
     out_merge = Image.fromarray(np.expand_dims(np.max(np.concatenate((np.array(out1),np.array(out2)),axis=2),axis=2),2).repeat(3,2))
 

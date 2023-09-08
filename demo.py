@@ -28,8 +28,8 @@ tfmc2 = T.Compose([
 
 
 ckpts = ['ckpt/fscad_36249.ckpt'] # 828 FS-Model
-#  ckpts = ['mlruns/9/960676401c5d4d85ac4e0d43c574afe3/artifacts/best.ckpt'] # XCAD-Model
-#  ckpts = ['mlruns/4/da9110cc64c24cb08fc23984966bc62a/056.ckpt'] # PT-Model
+#  ckpts = ['ckpt/xcad_4afe3.ckpt'] # XCAD-Model
+#  ckpts = ['ckpt/pt_bc62a.ckpt'] # PT-Model
 
 netE = UNet(1, 1, 32, bilinear=True)
 checkpoint = torch.load(ckpts[0], map_location="cpu")

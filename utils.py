@@ -94,7 +94,7 @@ class EMA():
 
 
 def fusion_predict(model, ckpts, x, size=512, pad=0, device='cpu', return_x=True, multiangle=False, denoise=3, cutoff=1, padding_mode='reflect', netE=True):
-    """融合多个角度或多个ckpt的输出,可取得更好的结果
+    """融合多个角度或多个ckpt的输出,可取得更好的视觉效果
     ckpt：checkpoint path
     x: input multiple tensor, each shape(C,H,W)
     pad：边缘填充, 如果mutiangle=False, 仅填充right和bottom，如果multiangel=True, 填充四边。
@@ -127,11 +127,14 @@ def fusion_predict(model, ckpts, x, size=512, pad=0, device='cpu', return_x=True
         if isinstance(ckpt, dict):
             model.load_state_dict(ckpt)
         else:
-            checkpoint = torch.load(ckpt, map_location=device)
-            if netE:
-                model.load_state_dict(checkpoint['netE'])
-            else:
-                model.load_state_dict(checkpoint['netG_B2A'])
+            try:
+                checkpoint = torch.load(ckpt, map_location=device)
+                if netE:
+                    model.load_state_dict(checkpoint['netE'])
+                else:
+                    model.load_state_dict(checkpoint['netG_B2A'])
+            except:
+                pass
 
         model.to(device)
         with torch.no_grad():

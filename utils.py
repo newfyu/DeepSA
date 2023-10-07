@@ -1,22 +1,17 @@
-import datetime
 import random
-import shutil
-import sys
-import time
 
 import cv2
-import mlflow
 import numpy as np
-import pylibjpeg
 import torch
 import torchvision
 import torchvision.transforms as T
-from PIL import Image, ImageOps, ImageChops
+from PIL import Image, ImageOps
 from pydicom import dcmread
 from torch.autograd import Variable
 from tqdm import tqdm
 from skimage import filters, morphology
 from datasets import tophat
+from torch.utils.data import ConcatDataset
 
 def batch2pil(x, nrow=8, normalize=True, padding=1, pad_value=1, range=None):
     grid = torchvision.utils.make_grid(
@@ -378,3 +373,22 @@ def dice_loss(pred, target, smooth = 1.):
     loss = (1 - ((2. * intersection + smooth) / (pred.sum(dim=2).sum(dim=2) + target.sum(dim=2).sum(dim=2) + smooth)))
     return loss.mean()
 
+def split_dataset(dataset, fold_n, fold_id):
+    assert 0 <= fold_id < fold_n, "fold_id should be in the range [0, fold_n-1]"
+    total_size = len(dataset)
+    fold_size = total_size // fold_n
+    sizes = [fold_size] * fold_n
+    # 为了处理不整除的情况，将多余的样本加到最后一个fold
+    sizes[-1] += total_size - sum(sizes)
+    
+    folds = []
+    start_idx = 0
+    for s in sizes:
+        end_idx = start_idx + s
+        folds.append(torch.utils.data.Subset(dataset, list(range(start_idx, end_idx))))
+        start_idx = end_idx
+    
+    valid_ds = folds[fold_id]
+    train_ds = ConcatDataset(folds[:fold_id] + folds[fold_id+1:])
+    
+    return train_ds, valid_ds

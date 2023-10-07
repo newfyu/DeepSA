@@ -309,14 +309,19 @@ class TwoHeadAttentionUNet(nn.Module):
         return self.backbone(x)[1]
 
 
+def count_parameters(model):
+    total_params = 0
+    for param in model.parameters():
+        num_params = 1
+        for size in param.size():
+            num_params *= size
+        total_params += num_params
+    return total_params
 
 if __name__ == "__main__":
-    D = Discriminator(1)
-    #  G = Generator(1,1,3)
-    #  G = TwoHeadAttentionUNet(1, 1)
-    #  D = MultiscaleDiscriminator(1)
     x = torch.randn(3, 1, 512, 512)
-    out = D(x)
-    #  out = G(x)
-    print(out.shape)
+    G = UNet(1, 1, 64)
+    out = G(x)
+    total_params = count_parameters(G)
+    print(f"Total number of parameters: {total_params}")
     pass

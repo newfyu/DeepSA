@@ -6,13 +6,13 @@ import time
 import mlflow
 import torch
 from torch.nn import DataParallel
-from torch.utils.data import DataLoader, random_split
+from torch.utils.data import DataLoader 
 from tqdm import tqdm
 import torch.nn.functional as F
 
 from datasets import ImageDataset2
 from models import UNet
-from utils import LambdaLR, dice_loss
+from utils import LambdaLR, dice_loss, split_dataset
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--epoch', type=int, default=0, help='starting epoch')
@@ -21,6 +21,8 @@ parser.add_argument('--decay_epoch', type=int, default=50, help='epoch to start 
 parser.add_argument('--batch_size', type=int, default=4, help='size of the batches')
 parser.add_argument('--dataroot', type=str, default='./datasets/FS-CAD', help='root directory of the dataset')
 parser.add_argument('--lr', type=float, default=0.0002, help='initial learning rate')
+parser.add_argument('--fold_id', type=int, default=0, help='test fold id')
+parser.add_argument('--fold_n', type=int, default=5, help='number of fold')
 parser.add_argument('--wd', type=float, default=0., help='weight decay')
 parser.add_argument('--size', type=int, default=512, help='size of the data crop (squared assumed)')
 parser.add_argument('--input_nc', type=int, default=1, help='number of channels of input data')
@@ -86,20 +88,15 @@ lr_scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=LambdaLR(o
 input_A = torch.FloatTensor(opt.batch_size, opt.input_nc, opt.size, opt.size).to(device)
 input_B = torch.FloatTensor(opt.batch_size, opt.output_nc, opt.size, opt.size).to(device)
 
-# Dataset loader
-#  train_dl = DataLoader(ImageDataset2(opt.dataroot, size=opt.size, unaligned=False, mode='train',return_img_name=False),
-                        #  batch_size=opt.batch_size, shuffle=True, num_workers=opt.n_cpu, drop_last=True)
-
-#  test_dl = DataLoader(ImageDataset2(opt.dataroot, size=opt.size, unaligned=False, mode='test',return_img_name=False),
-                     #  batch_size=1, shuffle=False, num_workers=opt.n_cpu)
-
 # fold
 ds = ImageDataset2(opt.dataroot, size=opt.size, unaligned=False, mode='test',return_img_name=False)
-train_ratio = 4/5
-train_size = int(len(ds) * train_ratio)
-valid_size = len(ds) - train_size
-train_ds, valid_ds = random_split(ds, [train_size, valid_size], generator=torch.Generator().manual_seed(opt.seed))
+#  train_ratio = 4/5
+#  train_size = int(len(ds) * train_ratio)
+#  valid_size = len(ds) - train_size
+#  train_ds, valid_ds = random_split(ds, [train_size, valid_size], generator=torch.Generator().manual_seed(opt.seed))
 
+
+train_ds, valid_ds = split_dataset(ds, opt.fold_n, opt.fold_id)
 
 train_dl = DataLoader(train_ds, batch_size=opt.batch_size, shuffle=True, num_workers=opt.n_cpu, drop_last=True)
 valid_dl = DataLoader(valid_ds, batch_size=1, shuffle=False, num_workers=opt.n_cpu)

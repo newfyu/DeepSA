@@ -124,3 +124,6 @@ notebook/
 flagged/
 preds/
 datasets/
+outputs
+finetune_fscad-重叠图制作.ipynb
+overlaid_results.png

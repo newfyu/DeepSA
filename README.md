@@ -15,10 +15,6 @@ cd DeepSA
 pip install -r requirements.txt
 ```
 
-## Run demo
-```
-python demo.py
-```
 
 ## Dataset
 - LM-CAD (Live-Mask Coronary Angiogram Dataset): [google driver](https://drive.google.com/drive/folders/1fEKPNMcRv5qb8vKyaJzF1P9V9ZavA1xL)
@@ -33,5 +29,10 @@ python train.py --name xxxx
 ## Finetune
 Finetune base mode use FM-CAD dataset
 ```
-python finetune.py
+python finetune.py --name xxxx
+```
+
+## Run demo
+```
+python demo.py
 ```

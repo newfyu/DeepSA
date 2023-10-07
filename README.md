@@ -1,6 +1,10 @@
 # Deep Subtraction Angiography
 ## Overview
-Unsupervised Pre-training Models for Coronary Angiogram  Subtraction and Segmentation
+Pretrained Subtraction and Segmentation Model for Coronary Angiograms
+
+## Online demo
+http://116.63.137.34:7860
+![demo](./example/demo.jpg)
 
 ## Install 
 ```shell
@@ -23,7 +27,7 @@ python demo.py
 ## Train
 Train base mode use LM-CAD dataset
 ```shell
-python train.py
+python train.py --name xxxx
 ```
 
 ## Finetune

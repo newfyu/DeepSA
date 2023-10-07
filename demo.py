@@ -100,7 +100,7 @@ def predict(img, auto_tresh, options):
 
 title = "DeepSA"
 description = "Deep Subtraction Angiography"
-article = "<p style='text-align: center'><a href='https://github.com/bryandlee/animegan2-pytorch' target='_blank'>Github Repo Pytorch</a></p> <center><img src='https://visitor-badge.glitch.me/badge?page_id=akhaliq_animegan' alt='visitor badge'></center></p>"
+article = "<p style='text-align: center'><a href='https://github.com/newfyu/DeepSA' target='_blank'>Github Repo</a>"
 
 examples = Path("example").glob("*.png")
 examples = [[str(e)] for e in examples]
@@ -116,4 +116,3 @@ demo = gr.Interface(
 )
 
 demo.launch(server_name='0.0.0.0')
-

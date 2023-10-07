@@ -21,8 +21,8 @@ python demo.py
 ```
 
 ## Dataset
-- LM-CAD (Live-Mask Coronary Angiogram Dataset): 
-- FS-CAD (Fine Segmentation Coronary Angiogram Dataset): 
+- LM-CAD (Live-Mask Coronary Angiogram Dataset): [google driver](https://drive.google.com/drive/folders/1fEKPNMcRv5qb8vKyaJzF1P9V9ZavA1xL)
+- FS-CAD (Fine Segmentation Coronary Angiogram Dataset): [google driver](https://drive.google.com/drive/folders/1fEKPNMcRv5qb8vKyaJzF1P9V9ZavA1xL)
 
 ## Train
 Train base mode use LM-CAD dataset
@@ -34,9 +34,4 @@ python train.py --name xxxx
 Finetune base mode use FM-CAD dataset
 ```
 python finetune.py
-```
-
-## Cite
-```
-xxxx
 ```

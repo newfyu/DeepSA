@@ -20,6 +20,8 @@ pip install -r requirements.txt
 - LM-CAD (Live-Mask Coronary Angiogram Dataset): [google driver](https://drive.google.com/drive/folders/1fEKPNMcRv5qb8vKyaJzF1P9V9ZavA1xL)
 - FS-CAD (Fine Segmentation Coronary Angiogram Dataset): [google driver](https://drive.google.com/drive/folders/1fEKPNMcRv5qb8vKyaJzF1P9V9ZavA1xL)
 
+Create a "datasets" folder in the root directory, and then extract the dataset and place it in the folder.
+
 ## Train
 Train pretrained model use LM-CAD dataset
 ```shell

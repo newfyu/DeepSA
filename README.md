@@ -21,13 +21,13 @@ pip install -r requirements.txt
 - FS-CAD (Fine Segmentation Coronary Angiogram Dataset): [google driver](https://drive.google.com/drive/folders/1fEKPNMcRv5qb8vKyaJzF1P9V9ZavA1xL)
 
 ## Train
-Train base mode use LM-CAD dataset
+Train pretrained model use LM-CAD dataset
 ```shell
 python train.py --name xxxx
 ```
 
 ## Finetune
-Finetune base mode use FM-CAD dataset
+Finetune pretrained mode use FM-CAD dataset
 ```
 python finetune.py --name xxxx
 ```
